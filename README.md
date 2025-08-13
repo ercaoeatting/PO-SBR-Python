@@ -1,7 +1,6 @@
 # PO-SBR-Python
 A python implementation of shooting and bouncing rays (PO-SBR), accelerated using OptiX. 
 
-Feel free to post an issue or email me at yftan@nus.edu.sg if you have anything to ask.
 
 # How to use
 Place POsolver.py into the working folder, and use the functions.   
