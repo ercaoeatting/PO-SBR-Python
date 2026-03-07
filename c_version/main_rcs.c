@@ -12,13 +12,20 @@ static double rcs_db(Complex e_theta, Complex e_phi, double r0) {
     return 10.0 * log10(sigma + 1e-30);
 }
 
-int main(void) {
-    const char *filename = "../geometries/trihedral.obj";
+int main(int argc, char **argv) {
+    const char *filename = NULL;
     const double alpha = 180.0;
     const double theta = 90.0;
     const double freq = 3e9;
     const int rays_per_lambda = 3;
     const int bounces = 3;
+
+    if (argc < 2) {
+        fprintf(stderr, "usage: %s <model.obj>\n", argv[0]);
+        fprintf(stderr, "example: %s ../geometries/trihedral.obj\n", argv[0]);
+        return 1;
+    }
+    filename = argv[1];
 
     Mesh mesh;
     if (po_load_obj(filename, &mesh) != 0) {
