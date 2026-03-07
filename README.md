@@ -7,7 +7,7 @@ Place POsolver.py into the working folder, and use the functions.
 Examples are given in Test_RCS for RCS, and Test_range for radar range profile.  
 
 # C language rebuild (CPU reference)
-A C rewrite is provided under `c_version/` so you can run a pure C implementation without Python/OptiX.
+A C rewrite is provided under `c_version/` as a **CPU reference implementation**. It currently does **not** use CUDA/OptiX.
 
 ## Build
 ```bash
@@ -17,8 +17,17 @@ make
 
 ## Run
 ```bash
+./po_rcs ../geometries/trihedral.obj
+```
+
+This executable takes the model path as the first command-line argument and sweeps `phi` to print monostatic RCS (dBsm).
+For details and migration notes toward CUDA/OptiX, see `c_version/README.md`.
 
 
+
+# CUDA/OptiX C++ version
+A direct OptiX 7 scaffold is available in `c_optix/` (context, GAS, SBT, launch, and CLI).
+See `c_optix/README.md` for build instructions and current scope.
 
 # Functions that you really need to care about
 1. ```build(filename)``` takes in the filename of the geometry. Supported file formats inherit from libigl: ```obj, off, stl, wrl, ply, mesh```. Returns vertices and faces ```v,f```  

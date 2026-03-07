@@ -27,6 +27,8 @@ int main(int argc, char **argv) {
     }
     filename = argv[1];
 
+    printf("[info] running CPU reference solver (no CUDA/OptiX)\n");
+
     Mesh mesh;
     if (po_load_obj(filename, &mesh) != 0) {
         fprintf(stderr, "failed to load mesh: %s\n", filename);
