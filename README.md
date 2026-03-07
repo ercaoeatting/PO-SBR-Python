@@ -17,10 +17,8 @@ make
 
 ## Run
 ```bash
-./po_rcs ../geometries/trihedral.obj
-```
 
-This executable takes the model path as the first command-line argument and sweeps `phi` to print monostatic RCS (dBsm).
+
 
 # Functions that you really need to care about
 1. ```build(filename)``` takes in the filename of the geometry. Supported file formats inherit from libigl: ```obj, off, stl, wrl, ply, mesh```. Returns vertices and faces ```v,f```  
