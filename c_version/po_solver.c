@@ -262,7 +262,7 @@ SimResult po_simulate(
         }
     }
 
-    for (int b = 0; b <= max_bounces; ++b) {
+    for (int b = 0; b < max_bounces; ++b) {
         for (int r = 0; r < ray_count; ++r) {
             if (!rays[r].active) continue;
             double t_hit = 0.0;
@@ -271,6 +271,8 @@ SimResult po_simulate(
                 rays[r].active = 0;
                 continue;
             }
+
+            if (v_dot(rays[r].dir, n_hit) > 0.0) n_hit = v_scale(n_hit, -1.0);
 
             rays[r].distance += t_hit;
             rays[r].has_hit = 1;

@@ -20,7 +20,7 @@ make
 ./po_rcs ../geometries/trihedral.obj
 ```
 
-This executable takes the model path as the first command-line argument and sweeps `phi` to print monostatic RCS (dBsm).
+This executable takes the model path as the first command-line argument and sweeps `phi` to print scattered field level (dB).
 For details and migration notes toward CUDA/OptiX, see `c_version/README.md`.
 
 

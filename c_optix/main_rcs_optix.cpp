@@ -3,12 +3,11 @@
 #include <cmath>
 #include <cstdio>
 
-static float rcs_db(OptixComplex e_theta, OptixComplex e_phi, float r0) {
-    const float pi = 3.14159265358979323846f;
+static float field_db(OptixComplex e_theta, OptixComplex e_phi) {
     const float et = e_theta.re * e_theta.re + e_theta.im * e_theta.im;
     const float ep = e_phi.re * e_phi.re + e_phi.im * e_phi.im;
-    const float sigma = 4.0f * pi * r0 * r0 * (et + ep);
-    return 10.0f * std::log10(sigma + 1e-30f);
+    const float e2 = et + ep;
+    return 10.0f * std::log10(e2 + 1e-30f);
 }
 
 int main(int argc, char **argv) {
@@ -36,7 +35,8 @@ int main(int argc, char **argv) {
 
     for (float phi = 45.0f; phi < 135.0f; phi += 1.0f) {
         OptixSimResult r = optix_po_simulate(ctx, alpha, phi, theta, freq, rays_per_lambda, bounces);
-        std::printf("phi=%6.2f deg, RCS=%8.3f dBsm\n", phi, rcs_db(r.e_theta, r.e_phi, r.r0));
+        (void)r.r0;
+        std::printf("phi=%6.2f deg, Level=%8.3f dB\n", phi, field_db(r.e_theta, r.e_phi));
     }
 
     optix_po_destroy(ctx);

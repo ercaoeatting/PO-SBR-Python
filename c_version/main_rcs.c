@@ -5,11 +5,11 @@
 
 #define PI 3.14159265358979323846
 
-static double rcs_db(Complex e_theta, Complex e_phi, double r0) {
+static double field_db(Complex e_theta, Complex e_phi) {
     double et = e_theta.re * e_theta.re + e_theta.im * e_theta.im;
     double ep = e_phi.re * e_phi.re + e_phi.im * e_phi.im;
-    double sigma = 4.0 * PI * r0 * r0 * (et + ep);
-    return 10.0 * log10(sigma + 1e-30);
+    double e2 = et + ep;
+    return 10.0 * log10(e2 + 1e-30);
 }
 
 int main(int argc, char **argv) {
@@ -37,8 +37,9 @@ int main(int argc, char **argv) {
 
     for (double phi = 45.0; phi < 135.0; phi += 1.0) {
         SimResult result = po_simulate(alpha, phi, theta, freq, rays_per_lambda, bounces, &mesh);
-        double rcs = rcs_db(result.e_theta, result.e_phi, result.r0);
-        printf("phi=%6.2f deg, RCS=%8.3f dBsm\n", phi, rcs);
+        (void)result.r0;
+        double level_db = field_db(result.e_theta, result.e_phi);
+        printf("phi=%6.2f deg, Level=%8.3f dB\n", phi, level_db);
     }
 
     po_free_mesh(&mesh);
