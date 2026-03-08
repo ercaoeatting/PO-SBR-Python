@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdio>
+#include <string>
 
 static float field_db(OptixComplex e_theta, OptixComplex e_phi) {
     const float et = e_theta.re * e_theta.re + e_theta.im * e_theta.im;
@@ -11,10 +12,18 @@ static float field_db(OptixComplex e_theta, OptixComplex e_phi) {
 }
 
 int main(int argc, char **argv) {
+    if (argc >= 2 && std::string(argv[1]) == "--optix-version") {
+        std::printf("OptiX version: %s\n", optix_po_version_string());
+        return 0;
+    }
+
     if (argc < 2) {
         std::fprintf(stderr, "usage: %s <model.obj>\n", argv[0]);
+        std::fprintf(stderr, "       %s --optix-version\n", argv[0]);
         return 1;
     }
+
+    std::printf("OptiX version: %s\n", optix_po_version_string());
 
     OptixPoContext *ctx = nullptr;
     if (optix_po_create(&ctx) != 0) {

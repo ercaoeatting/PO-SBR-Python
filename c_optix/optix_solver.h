@@ -23,6 +23,8 @@ void optix_po_destroy(OptixPoContext *ctx);
 
 int optix_po_load_obj(OptixPoContext *ctx, const char *filename);
 
+const char *optix_po_version_string(void);
+
 OptixSimResult optix_po_simulate(
     OptixPoContext *ctx,
     float alpha_deg,

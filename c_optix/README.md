@@ -16,6 +16,7 @@ cmake --build c_optix/build -j
 
 ## Run
 ```bash
+./c_optix/build/po_rcs_optix --optix-version
 ./c_optix/build/po_rcs_optix geometries/trihedral.obj
 ```
 

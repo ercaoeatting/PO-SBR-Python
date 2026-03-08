@@ -4,6 +4,7 @@
 #include <optix.h>
 #include <optix_stubs.h>
 
+#include <cstdio>
 #include <cstring>
 #include <fstream>
 #include <sstream>
@@ -73,6 +74,16 @@ static const char *kPtx = R"ptx(
 .visible .entry __miss__ms() { ret; }
 .visible .entry __closesthit__ch() { ret; }
 )ptx";
+
+
+extern "C" const char *optix_po_version_string(void) {
+    static char ver[32];
+    const int major = OPTIX_VERSION / 10000;
+    const int minor = (OPTIX_VERSION % 10000) / 100;
+    const int patch = OPTIX_VERSION % 100;
+    snprintf(ver, sizeof(ver), "%d.%d.%d", major, minor, patch);
+    return ver;
+}
 
 static int load_obj(const char *filename, std::vector<float3h> &verts, std::vector<int3h> &faces, float3h &bbmin, float3h &bbmax) {
     std::ifstream in(filename);
