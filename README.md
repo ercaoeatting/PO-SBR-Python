@@ -6,6 +6,29 @@ A python implementation of shooting and bouncing rays (PO-SBR), accelerated usin
 Place POsolver.py into the working folder, and use the functions.   
 Examples are given in Test_RCS for RCS, and Test_range for radar range profile.  
 
+# C language rebuild (CPU reference)
+A C rewrite is provided under `c_version/` as a **CPU reference implementation**. It currently does **not** use CUDA/OptiX.
+
+## Build
+```bash
+cd c_version
+make
+```
+
+## Run
+```bash
+./po_rcs ../geometries/trihedral.obj
+```
+
+This executable takes the model path as the first command-line argument and sweeps `phi` to print scattered field level (dB).
+For details and migration notes toward CUDA/OptiX, see `c_version/README.md`.
+
+
+
+# CUDA/OptiX C++ version
+A direct OptiX 7 scaffold is available in `c_optix/` (context, GAS, SBT, launch, and CLI).
+See `c_optix/README.md` for build instructions and current scope.
+
 # Functions that you really need to care about
 1. ```build(filename)``` takes in the filename of the geometry. Supported file formats inherit from libigl: ```obj, off, stl, wrl, ply, mesh```. Returns vertices and faces ```v,f```  
 2. ```simulate(alpha, phi, theta, freq, raysperlam, v, f)```. This simulates monostatic radar. (receive = transmit angle)
@@ -70,4 +93,3 @@ Theoretical boresight maximum: 33.3dB. Simulated: 33.2dB
 # References
 [1] R. Bhalla and H. Ling, "Image domain ray tube integration formula for the shooting and bouncing ray technique," in Radio Science, vol. 30, no. 5, pp. 1435-1446, Sept.-Oct. 1995.  
 [2] S. W. Lee, H. Ling and R. Chou, "Ray-tube integration in shooting and bouncing ray method", Microwave and Optical Technology Letters, vol. 1, no. 8, pp. 286-289, October 1988.  
-
